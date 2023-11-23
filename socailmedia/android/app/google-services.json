@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1050563996986",
+    "project_id": "social-media-840da",
+    "storage_bucket": "social-media-840da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1050563996986:android:9eb68e01758b894911b403",
+        "android_client_info": {
+          "package_name": "com.example.socailmedia"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsFBhC2zUsZWFpGWb1Z2HrnLCnpm-9myQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

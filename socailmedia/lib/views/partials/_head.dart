@@ -1,0 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:socailmedia/auth/auth.dart';
+import 'package:socailmedia/auth/login_or_register.dart';
+import 'package:socailmedia/firebase_options.dart';
+import 'package:socailmedia/pages/home_page.dart';
+import 'package:socailmedia/pages/login_page.dart';
+import 'package:socailmedia/pages/profile_page.dart';
+import 'package:socailmedia/pages/register_page.dart';
+import 'package:socailmedia/pages/users_page.dart';
+import 'package:socailmedia/theme/dark_mode.dart';
+import 'package:socailmedia/theme/light_mode.dart';
