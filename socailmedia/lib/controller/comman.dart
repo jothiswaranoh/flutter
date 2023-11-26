@@ -11,6 +11,7 @@ import 'package:socailmedia/components/my_textfield.dart';
 import 'package:socailmedia/model/firestore.dart';
 import 'package:socailmedia/controller/comman.dart';
 import '../helper/display_message_to_user.dart';
+
 void postMessage(TextEditingController newPostController) {
   if (newPostController.text.isNotEmpty) {
     String message = newPostController.text;
@@ -62,11 +63,14 @@ Future<DocumentSnapshot<Map<String, dynamic>>> getuserdetails(
 }
 
 void addPostToDatabase(String message) {
-  // Assuming you have a 'database' object defined somewhere
-  // This should be adjusted based on your actual implementation
-  // database.addpost(message);
+  final currentUser = getCurrentUser();
+  FirebaseFirestore.instance.collection("posts").add({
+    'UserEmail': currentUser?.email,
+    'message': message,
+    'Timestamp': Timestamp.now(),
+    'Likes': [],
+  });
 }
-
 
 // Register related methods
 Future<void> register(

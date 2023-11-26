@@ -12,6 +12,7 @@ class FirebaseDatabase {
       'UserEmail': user!.email,
       'PostMessage': message,
       'Timestamp': Timestamp.now(),
+      'Likes': []
     });
   }
 

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -6,6 +8,7 @@ import 'package:socailmedia/components/my_drawer.dart';
 import 'package:socailmedia/components/my_list_tile.dart';
 import 'package:socailmedia/components/my_post_button.dart';
 import 'package:socailmedia/components/my_textfield.dart';
+import 'package:socailmedia/components/my_wall.dart';
 import 'package:socailmedia/model/firestore.dart';
 import 'package:socailmedia/controller/comman.dart';
 import '../model/tab_icon_data.dart';
@@ -17,7 +20,7 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   List<TabIconData> tabIconsList = TabIconData.tabIconsList;
 
   AnimationController? animationController;
@@ -99,20 +102,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin{
               // Return a list of posts
               return Expanded(
                 child: ListView.builder(
-                  itemCount: posts.length,
-                  itemBuilder: (context, index) {
-                    final post = posts[index];
-                    String message = post['PostMessage'];
-                    String userEmail = post['UserEmail'];
-                    return My_List_tile(title: message, subtitle: userEmail);
-                  },
-                ),
+                    itemCount: posts.length,
+                    itemBuilder: (context, index) {
+                      final post = posts[index];
+                      String message = post['message'];
+                      String userEmail = post['UserEmail'];
+                      String postId = post.id;
+                      List<String> likes = List<String>.from(post['Likes'] ??
+                          []);
+
+                      return MyWall(
+                        title: message,
+                        subtitle: userEmail,
+                        likes: likes,
+                        postId: postId,
+                      );
+                    }),
               );
             }),
-          ),// Call the bottomBar function here
+          ), // Call the bottomBar function here
         ],
       ),
     );
   }
-
- }
+}
