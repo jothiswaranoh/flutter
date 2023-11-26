@@ -24,7 +24,7 @@ class MyLikeButton extends StatelessWidget {
             isLiked ? Icons.favorite : Icons.favorite_border,
             color: isLiked ? Colors.red : Colors.grey,
           ),
-          const SizedBox(width: 15,),
+          const SizedBox(height:5),
           Text(count,style: TextStyle(
             color: Colors.grey
           ),),

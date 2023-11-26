@@ -115,6 +115,7 @@ Future<void> createUserDocument(UserCredential? userCredential,
         .set({
       'email': userCredential.user!.email,
       'username': userController.text,
+      'bio':'empty',
     });
   }
 }

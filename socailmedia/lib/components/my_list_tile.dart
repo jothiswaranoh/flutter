@@ -16,7 +16,7 @@ class My_List_tile extends StatefulWidget {
 }
 
 class _My_List_tileState extends State<My_List_tile> {
-  final current_user=getCurrentUser();
+  final currentUser=getCurrentUser();
 
   @override
   Widget build(BuildContext context) {

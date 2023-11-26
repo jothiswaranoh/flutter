@@ -108,8 +108,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       String message = post['message'];
                       String userEmail = post['UserEmail'];
                       String postId = post.id;
-                      List<String> likes = List<String>.from(post['Likes'] ??
-                          []);
+                      List<String> likes =
+                          List<String>.from(post['Likes'] ?? []);
+                      // String postcount = post[postId]['comments'].length.toString();
+
+                      // print(postcount);
 
                       return MyWall(
                         title: message,

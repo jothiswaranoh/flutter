@@ -1,18 +1,88 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:socailmedia/components/my_back_button.dart';
+import 'package:socailmedia/components/my_textfield_edit.dart';
 import 'package:socailmedia/components/space.dart';
 import 'package:socailmedia/controller/comman.dart';
 import 'package:socailmedia/model/firestore.dart';
 
 import '../components/my_list_tile.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   final FirebaseDatabase database = FirebaseDatabase();
+
+  final usersCollection = FirebaseFirestore.instance.collection("Users");
+
   User? currentUser = getCurrentUser();
+
+  // Future<void> editField(BuildContext context, String field) async {
+Future<void> editField(BuildContext context, String field) async {
+  String newValue = ''; // Initialize newValue with an empty string
+  await showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text(
+        "Edit $field",
+        style: TextStyle(color: Colors.white),
+      ),
+      content: TextField(
+        autofocus: true,
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          hintText: "Enter new $field",
+          hintStyle: TextStyle(color: Colors.grey),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue),
+          ),
+        ),
+        onChanged: (value) {
+          newValue = value;
+        },
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(); // Close the dialog without updating
+          },
+          child: Text(
+            'Cancel',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            Navigator.of(context).pop(newValue); // Close the dialog with the value
+              // Only update the value if 'Save' was pressed
+  if (newValue.trim().length > 0) {
+    usersCollection.doc(currentUser!.email).update({field: newValue});
+    print('New value: $newValue');
+     setState(() {});
+  }
+          },
+          child: Text(
+            'Save',
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ],
+    ),
+  );
+
+
+}
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +153,34 @@ class ProfilePage extends StatelessWidget {
                 color: Colors.grey,
               ),
             ),
-   ],
+            Space(
+              inputHeight: 50,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: Text("My Details",
+                  style: TextStyle(color: Color.fromARGB(255, 215, 215, 215))),
+            ),
+
+            //username
+            MyTextFieldEdit(
+              text: user?['username'],
+              sectionName: 'Username',
+              onpressed: () => editField(context, 'username'),
+            ),
+            //bio
+            MyTextFieldEdit(
+              text: user?['bio'],
+              sectionName: 'bio',
+              onpressed: () => editField(context, 'bio'),
+            ),
+            //userpost
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0),
+              child: Text("Posts",
+                  style: TextStyle(color: Color.fromARGB(255, 215, 215, 215))),
+            ),
+          ],
         ),
       ),
     );
